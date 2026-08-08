@@ -36,11 +36,7 @@ def crop_to_square(img):
     return img.crop((left, top, left+side, top+side))
 
 def find_and_convert_icon(base_dir):
-    """
-    Looks for a .ico file in the project folder.
-    If none found, converts the first image (PNG/JPG/etc.) to .ico.
-    Returns (icon_path, is_temp) where is_temp=True if a temporary file was created.
-    """
+    
     ico_files = list(base_dir.glob("*.ico"))
     if ico_files:
         return ico_files[0], False
@@ -113,7 +109,6 @@ def main():
     default_name = script.stem
     name_input = input(f"EXE name (Enter = {default_name}): ").strip()
     exe_name = name_input if name_input else default_name
-    # Remove invalid characters for Windows filenames
     for ch in r'\/:*?"<>|':
         exe_name = exe_name.replace(ch, '_')
 
