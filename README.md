@@ -4,9 +4,10 @@ A simple console-based EXE builder for Python projects.
 
 ## Usage
 1. Place `Pyinstaller.py` in your project folder (next to `main.py`).
-2. Run: ` Pyinstaller.py`
-3. Answer the prompts (EXE name, console mode, admin rights).
-4. The final `.exe` will appear in the `dist` folder.
+2. Place the icon next to Pyinstaller.py (in the folder).
+3. Run: ` Pyinstaller.py`
+4. Answer the prompts (EXE name, console mode, admin rights).
+5. The final `.exe` will appear in the `dist` folder.
 
 ## Features
 - Automatically finds `main.py`
@@ -27,9 +28,10 @@ A simple console-based EXE builder for Python projects.
 
 ## Использование
 1. Поместите `Pyinstaller.py` в папку с вашим проектом (рядом с `main.py`).
-2. Запустите: `Pyinstaller.py`
-3. Ответьте на вопросы (имя EXE, консоль, админ).
-4. Готовый `.exe` появится в папке `dist`.
+2. Поместите иконку рядом с Pyinstaller.py (в папку)
+3. Запустите: `Pyinstaller.py`
+4. Ответьте на вопросы (имя EXE, консоль, админ).
+5. Готовый `.exe` появится в папке `dist`.
 
 ## Возможности
 - Автоматический поиск `main.py`
