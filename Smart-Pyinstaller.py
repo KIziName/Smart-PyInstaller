@@ -144,10 +144,7 @@ def main():
 
     cmd.append(str(script))
 
-    # Clean the dist folder
     dist_dir = base_dir / "dist"
-    if dist_dir.exists():
-        shutil.rmtree(dist_dir, ignore_errors=True)
     dist_dir.mkdir(exist_ok=True)
 
     # Run PyInstaller
