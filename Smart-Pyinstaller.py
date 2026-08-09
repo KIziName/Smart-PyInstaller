@@ -141,7 +141,7 @@ def main():
 
     # Auto-add --collect-all for customtkinter if detected
     with open(script, 'r', encoding='utf-8', errors='ignore') as f:
-         content = f.read()
+        content = f.read()
     if "customtkinter" in content:
         cmd.append("--collect-all=customtkinter")
         info("customtkinter detected – added --collect-all")
