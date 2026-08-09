@@ -140,8 +140,8 @@ def main():
             warn("--uac-admin skipped (only available on Windows)")
 
     # Auto-add --collect-all for customtkinter if detected
-    with open(script, 'r', encoding='utf-8') as f:
-        content = f.read()
+    with open(script, 'r', encoding='utf-8', errors='ignore') as f:
+         content = f.read()
     if "customtkinter" in content:
         cmd.append("--collect-all=customtkinter")
         info("customtkinter detected – added --collect-all")
