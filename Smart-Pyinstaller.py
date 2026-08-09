@@ -109,6 +109,9 @@ def main():
     default_name = script.stem
     name_input = input(f"EXE name (Enter = {default_name}): ").strip()
     exe_name = name_input if name_input else default_name
+    exe_name = exe_name.strip(' .')
+    if not exe_name:
+        exe_name = default_name      
     for ch in r'\/:*?"<>|':
         exe_name = exe_name.replace(ch, '_')
 
