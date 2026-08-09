@@ -179,7 +179,8 @@ def main():
     # Result
     print()
     if success:
-        exe_path = dist_dir / f"{exe_name}.exe"
+        exe_suffix = '.exe' if sys.platform == 'win32' else ''
+        exe_path = dist_dir / f"{exe_name}{exe_suffix}"
         ok(f"Build successful! File: {exe_path}")
     else:
         error("Build failed. Check the error messages above.")
