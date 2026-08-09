@@ -128,7 +128,7 @@ def main():
     cmd = [
         sys.executable,
         "-m",
-        "pyInstaller",
+        "PyInstaller",
         "--onefile",
         "--clean",
         f"--name={exe_name}"
