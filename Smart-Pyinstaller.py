@@ -53,7 +53,8 @@ def find_and_convert_icon(base_dir):
         with Image.open(img_path) as img:
             square = crop_to_square(img)
             sizes = [(256,256),(128,128),(64,64),(48,48),(32,32),(16,16)]
-            imgs = [square.resize(s, Image.Resampling.LANCZOS) for s in sizes]
+            resample = getattr(Image, 'Resampling', Image).LANCZOS
+            imgs = [square.resize(s, resample) for s in sizes]
             imgs[0].save(ico_path, format="ICO", sizes=[s for s in sizes],
                          append_images=imgs[1:])
         return ico_path, True
