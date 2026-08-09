@@ -86,6 +86,13 @@ def main():
     base_dir = Path.cwd().resolve()
     info(f"Project folder: {base_dir}")
 
+    # Check if PyInstaller is installed
+    try:
+        import PyInstaller
+    except ImportError:
+        error("PyInstaller is not installed! Install it: pip install pyinstaller")
+        input("\nPress Enter to exit...")
+        return 1
     
     main_candidates = [f for f in base_dir.glob("*.py") if f.stem.lower() == "main"]
     if main_candidates:
