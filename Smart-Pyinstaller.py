@@ -132,8 +132,12 @@ def main():
         cmd.append("--noconsole")
     if icon_path:
         cmd.extend(["--icon", str(icon_path)])
+        
     if admin:
-        cmd.append("--uac-admin")
+        if sys.platform == 'win32':
+            cmd.append("--uac-admin")
+        else:
+            warn("--uac-admin skipped (only available on Windows)")
 
     # Auto-add --collect-all for customtkinter if detected
     with open(script, 'r', encoding='utf-8') as f:
