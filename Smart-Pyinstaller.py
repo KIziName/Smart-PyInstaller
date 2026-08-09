@@ -5,7 +5,6 @@ import shutil
 import subprocess
 from pathlib import Path
 
-# Fix console encoding for Windows
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
@@ -114,10 +113,8 @@ def main():
 
     # Console mode
     console = input("Show console window? (y/N): ").strip().lower() == 'y'
-
     # Administrator privileges
     admin = input("Request administrator privileges on launch? (y/N): ").strip().lower() == 'y'
-
     # Icon
     icon_path, is_temp = find_and_convert_icon(base_dir)
 
@@ -131,8 +128,7 @@ def main():
     if not console:
         cmd.append("--noconsole")
     if icon_path:
-        cmd.extend(["--icon", str(icon_path)])
-        
+        cmd.extend(["--icon", str(icon_path)])        
     if admin:
         if sys.platform == 'win32':
             cmd.append("--uac-admin")
