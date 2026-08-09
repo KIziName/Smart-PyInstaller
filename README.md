@@ -1,11 +1,11 @@
-# smart-pyinstaller
+# Smart-PyInstaller
 
 A simple console-based EXE builder for Python projects.
 
 ## Usage
-1. Place `Sm-Pyinstaller.py` in your project folder (next to `main.py`).
+1. Place `Sm-PyInstaller.py` in your project folder (next to `main.py`).
 2. Place the icon next to Sm-Pyinstaller.py (in the folder).
-3. Run: ` Sm-Pyinstaller.py`
+3. Run: ` Sm-PyInstaller.py`
 4. Answer the prompts (EXE name, console mode, admin rights).
 5. The final `.exe` will appear in the `dist` folder.
 
@@ -22,16 +22,16 @@ A simple console-based EXE builder for Python projects.
 
 
 
-# smart-pyinstaller
+# Smart-PyInstaller
 
 Простой консольный сборщик EXE для Python-проектов.
 
 ## Использование
-1. Поместите `Sm-Pyinstaller.py` в папку с вашим проектом (рядом с `main.py`).
-2. Поместите иконку рядом с Sm-Pyinstaller.py (в папку)
-3. Запустите: `Sm-Pyinstaller.py`
-4. Ответьте на вопросы (имя EXE, консоль, админ).
-5. Готовый `.exe` появится в папке `dist`.
+1. Поместите `Sm-PyInstaller.py` в папку с вашим проектом (рядом с `main.py`).
+3. Поместите иконку рядом с Sm-PyInstaller.py (в папку)
+4. Запустите: `Sm-PyInstaller.py`
+5. Ответьте на вопросы (имя EXE, консоль, админ).
+6. Готовый `.exe` появится в папке `dist`.
 
 ## Возможности
 - Автоматический поиск `main.py`
