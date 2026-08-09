@@ -36,16 +36,18 @@ def crop_to_square(img):
 
 def find_and_convert_icon(base_dir):
     
-    ico_files = list(base_dir.glob("*.ico"))
+    ico_files = [f for f in base_dir.glob("*.ico") if f.name != "temp_icon.ico"]
     if ico_files:
         return ico_files[0], False
-    if not PIL_AVAILABLE:
-        return None, False
     images = []
     for ext in ["*.png","*.jpg","*.jpeg","*.bmp","*.webp"]:
         images.extend(base_dir.glob(ext))
     if not images:
         return None, False
+    if not PIL_AVAILABLE:
+        warn(f"Found image {images[0].name}, but Pillow is missing. Run: pip install Pillow")
+        return None, False
+        
     img_path = images[0]
     info(f"Converting {img_path.name} to .ico...")
     try:
@@ -124,6 +126,8 @@ def main():
 
     # Build the PyInstaller command
     cmd = [
+        sys.executable,
+        "-m",
         "pyinstaller",
         "--onefile",
         "--clean",
