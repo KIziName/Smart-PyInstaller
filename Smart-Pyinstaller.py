@@ -8,16 +8,19 @@ from pathlib import Path
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
-class Colors:
-    GREEN = '\033[92m'; YELLOW = '\033[93m'; RED = '\033[91m'
-    BLUE = '\033[94m'; RESET = '\033[0m'
-    if not sys.stdout.isatty():
-        GREEN = YELLOW = RED = BLUE = RESET = ''
+# -------- Colors --------
+USE_COLOR = sys.stdout.isatty()
+GREEN  = '\033[92m' if USE_COLOR else ''
+YELLOW = '\033[93m' if USE_COLOR else ''
+RED    = '\033[91m' if USE_COLOR else ''
+BLUE   = '\033[94m' if USE_COLOR else ''
+RESET  = '\033[0m'  if USE_COLOR else ''
+# ----------------------
 
-def info(msg):  print(f"{Colors.BLUE}[i]{Colors.RESET} {msg}")
-def ok(msg):    print(f"{Colors.GREEN}[✓]{Colors.RESET} {msg}")
-def warn(msg):  print(f"{Colors.YELLOW}[!]{Colors.RESET} {msg}")
-def error(msg): print(f"{Colors.RED}[✗]{Colors.RESET} {msg}")
+def info(msg):  print(f"{BLUE}[i]{RESET} {msg}")
+def ok(msg):    print(f"{GREEN}[✓]{RESET} {msg}")
+def warn(msg):  print(f"{YELLOW}[!]{RESET} {msg}")
+def error(msg): print(f"{RED}[✗]{RESET} {msg}")
 
 # ---------- ICON HANDLING ----------
 try:
@@ -79,9 +82,9 @@ def cleanup(base_dir, exe_name, temp_icon):
 
 # ---------- MAIN ----------
 def main():
-    print(f"{Colors.GREEN}====================================={Colors.RESET}")
-    print(f"{Colors.GREEN}   Smart-PyInstaller Builder       {Colors.RESET}")
-    print(f"{Colors.GREEN}====================================={Colors.RESET}\n")
+    print(f"{GREEN}====================================={RESET}")
+    print(f"{GREEN}   Smart-PyInstaller Builder       {RESET}")
+    print(f"{GREEN}====================================={RESET}\n")
 
     base_dir = Path.cwd().resolve()
     is_windows = sys.platform == 'win32'
