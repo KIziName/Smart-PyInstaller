@@ -84,6 +84,7 @@ def main():
     print(f"{Colors.GREEN}====================================={Colors.RESET}\n")
 
     base_dir = Path.cwd().resolve()
+    is_windows = sys.platform == 'win32'
     info(f"Project folder: {base_dir}")
 
     # Check if PyInstaller is installed
@@ -116,8 +117,7 @@ def main():
 
     # EXE name
     default_name = script.stem
-    name_input = input(f"EXE name (Enter = {default_name}): ").strip()
-    exe_name = name_input if name_input else default_name
+    exe_name = input(f"EXE name (Enter = {default_name}): ").strip() or default_name
     exe_name = exe_name.strip(' .')
     if not exe_name:
         exe_name = default_name      
@@ -140,15 +140,12 @@ def main():
         "--clean",
         f"--name={exe_name}"
     ]
-    if not console:
-        cmd.append("--noconsole")
+    cmd += ["--noconsole"] if not console else []
     if icon_path:
         cmd.extend(["--icon", str(icon_path)])        
-    if admin:
-        if sys.platform == 'win32':
-            cmd.append("--uac-admin")
-        else:
-            warn("--uac-admin skipped (only available on Windows)")
+    if admin and not is_windows:
+        warn("--uac-admin skipped (only available on Windows)")
+    cmd += ["--uac-admin"] if (admin and is_windows) else []
 
     # Auto-add --collect-all for customtkinter if detected
     with open(script, 'r', encoding='utf-8', errors='ignore') as f:
@@ -179,7 +176,7 @@ def main():
     # Result
     print()
     if success:
-        exe_suffix = '.exe' if sys.platform == 'win32' else ''
+        exe_suffix = '.exe' if is_windows else ''
         exe_path = dist_dir / f"{exe_name}{exe_suffix}"
         ok(f"Build successful! File: {exe_path}")
     else:
