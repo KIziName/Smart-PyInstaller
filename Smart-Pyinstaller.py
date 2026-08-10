@@ -2,6 +2,7 @@ import sys
 import io
 import shutil
 import subprocess
+
 from pathlib import Path
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
@@ -66,25 +67,29 @@ def find_and_convert_icon(base_dir):
         return None, False
 
 # ---------- CLEANUP ----------
-def cleanup(base_dir, exe_name, temp_icon):
-    """Remove temporary build files and the .spec file."""
+def cleanup(base_dir, exe_name, temp_icon, keep_spec=True):
+    #Icon
     if temp_icon and temp_icon.exists():
         try: temp_icon.unlink()
         except: pass
-            
+    #Build        
     build_dir = base_dir / "build"
     if build_dir.exists():
         try:
             shutil.rmtree(build_dir)
         except Exception as e:
             warn(f"Cleanup failed for build/ folder (it may be locked by antivirus or system): {e}")
-     
+    #Spec
     spec_file = base_dir / f"{exe_name}.spec"
-    if spec_file.exists():
-        try:
-            spec_file.unlink()
-        except Exception as e:
-            warn(f"Failed to remove {exe_name}.spec: {e}")       
+    if keep_spec:
+        if spec_file.exists():
+            info(f".spec-file saved: {spec_file}")
+    else:
+        if spec_file.exists():
+            try:
+                spec_file.unlink()
+            except Exception as e:
+                warn(f"Failed to remove {exe_name}.spec: {e}")           
 
 # ---------- MAIN ----------
 def main():
@@ -134,12 +139,14 @@ def main():
         exe_name = exe_name.replace(ch, '_')
 
     # Console mode
-    console = input("Show console window? (y/N): ").strip().lower() == 'y'
+    console = input("Show console window? (y/N): ").strip().lower() == 'n'
     # Administrator privileges
-    admin = input("Request administrator privileges on launch? (y/N): ").strip().lower() == 'y'
+    admin = input("Request administrator privileges on launch? (y/N): ").strip().lower() == 'n'
     # Icon
     icon_path, is_temp = find_and_convert_icon(base_dir)
-
+    #Spec delete
+    keep_spec = input("Delete temporary .spec file after build? (Y/n): ").strip().lower() != 'n'
+    
     # Build the PyInstaller command
     cmd = [
         sys.executable,
