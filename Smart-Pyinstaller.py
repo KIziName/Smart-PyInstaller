@@ -71,12 +71,20 @@ def cleanup(base_dir, exe_name, temp_icon):
     if temp_icon and temp_icon.exists():
         try: temp_icon.unlink()
         except: pass
+            
     build_dir = base_dir / "build"
     if build_dir.exists():
         try:
             shutil.rmtree(build_dir)
         except Exception as e:
             warn(f"Cleanup failed for build/ folder (it may be locked by antivirus or system): {e}")
+     
+    spec_file = base_dir / f"{exe_name}.spec"
+    if spec_file.exists():
+        try:
+            spec_file.unlink()
+        except Exception as e:
+            warn(f"Failed to remove {exe_name}.spec: {e}")       
 
 # ---------- MAIN ----------
 def main():
