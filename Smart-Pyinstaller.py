@@ -167,8 +167,6 @@ def main():
         success = True
     except subprocess.CalledProcessError:
         success = False
-    except FileNotFoundError:
-        error("PyInstaller not found! Install it: pip install pyinstaller")
 
     # Cleanup temporary files
     cleanup(base_dir, exe_name, icon_path if is_temp else None)
