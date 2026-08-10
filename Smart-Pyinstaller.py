@@ -139,13 +139,13 @@ def main():
         exe_name = exe_name.replace(ch, '_')
 
     # Console mode
-    console = input("Show console window? (Y/N): ").strip().lower() == 'y'
+    console = input("Show console window? (y/N, default: N): ").strip().lower() == 'y'
     # Administrator privileges
-    admin = input("Request administrator privileges on launch? (Y/N): ").strip().lower() == 'y'
+    admin = input("Request administrator privileges on launch? (y/N, default: N): ").strip().lower() == 'y'
     # Icon
     icon_path, is_temp = find_and_convert_icon(base_dir)
     #Spec delete
-    keep_spec = input("Delete temporary .spec file after build? (Y/N): ").strip().lower() == 'y'
+    keep_spec = input("Delete temporary .spec file after build? (y/N, default: N): ").strip().lower() == 'y'
     
     # Build the PyInstaller command
     cmd = [
