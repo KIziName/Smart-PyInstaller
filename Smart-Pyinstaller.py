@@ -15,7 +15,6 @@ RED    = '\033[91m' if USE_COLOR else ''
 BLUE   = '\033[94m' if USE_COLOR else ''
 RESET  = '\033[0m'  if USE_COLOR else ''
 # ----------------------
-
 def info(msg):  print(f"{BLUE}[i]{RESET} {msg}")
 def ok(msg):    print(f"{GREEN}[✓]{RESET} {msg}")
 def warn(msg):  print(f"{YELLOW}[!]{RESET} {msg}")
@@ -74,10 +73,10 @@ def cleanup(base_dir, exe_name, temp_icon):
         except: pass
     build_dir = base_dir / "build"
     if build_dir.exists():
-        shutil.rmtree(build_dir, ignore_errors=True)
-    spec_file = base_dir / f"{exe_name}.spec"
-    if spec_file.exists():
-        spec_file.unlink()
+        try:
+            shutil.rmtree(build_dir)
+        except Exception as e:
+            warn(f"Cleanup failed for build/ folder (it may be locked by antivirus or system): {e}")
 
 # ---------- MAIN ----------
 def main():
