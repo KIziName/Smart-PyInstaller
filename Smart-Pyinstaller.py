@@ -144,8 +144,8 @@ def main():
     admin = input("Request administrator privileges on launch? (y/N, Enter: N): ").strip().lower() == 'y'
     # Icon
     icon_path, is_temp = find_and_convert_icon(base_dir)
-    #Spec delete
-    keep_spec = input("Delete temporary .spec file after build? (y/N, Enter: N): ").strip().lower() == 'y'
+    #Spec 
+    keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
     
     # Build the PyInstaller command
     cmd = [
