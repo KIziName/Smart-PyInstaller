@@ -164,26 +164,26 @@ def main():
     cmd += ["--uac-admin"] if (admin and is_windows) else []
 
     # Auto-add --collect-all for customtkinter if detected
-try:
-    with open(script, 'r', encoding='utf-8', errors='ignore') as f:
-        content = f.read()
-except Exception as e:
-    warn(f"Could not read script file: {e}")
-    content = ""
+    try:
+        with open(script, 'r', encoding='utf-8', errors='ignore') as f:
+            content = f.read()
+    except Exception as e:
+        warn(f"Could not read script file: {e}")
+        content = ""
 
-if "customtkinter" in content:
-    cmd.append("--collect-all=customtkinter")
-    info("customtkinter detected – added --collect-all")
+    if "customtkinter" in content:
+        cmd.append("--collect-all=customtkinter")
+        info("customtkinter detected – added --collect-all")
 
     cmd.append(str(script))
 
-dist_dir = base_dir / "dist"
-try:
-    dist_dir.mkdir(exist_ok=True)
-except Exception as e:
-    error(f"Cannot create dist directory: {e}")
-    input("\nPress Enter to exit...")
-    return 1
+    dist_dir = base_dir / "dist"
+    try:
+        dist_dir.mkdir(exist_ok=True)
+    except Exception as e:
+        error(f"Cannot create dist directory: {e}")
+        input("\nPress Enter to exit...")
+        return 1
 
     # Run PyInstaller
     info("Running PyInstaller...")
