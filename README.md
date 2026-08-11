@@ -26,10 +26,15 @@ Smart‑PyInstaller
 Возможности
 
 · Автоопределение main.py (или выбор другого скрипта).
+
 · Конвертация PNG/JPG/BMP/WEBP в .ico (если установлен Pillow).
+
 · Настройка консоли (--noconsole) и прав администратора (--uac-admin).
+
 · Автоматическое добавление --collect-all=customtkinter при обнаружении.
+
 · Очистка временных файлов (build/, временная иконка), но .spec сохраняется при ошибке для отладки.
+
 · Корректные коды возврата (0 – успех, ненулевые – ошибки) для CI/CD.
 
 ---
@@ -70,10 +75,15 @@ Option 2 – via IDE (PyCharm)
 Features
 
 · Auto‑detects main.py (or lets you choose another script).
+
 · Converts PNG/JPG/BMP/WEBP images to .ico (if Pillow is installed).
+
 · Console mode (--noconsole) and admin rights (--uac-admin) configurable.
+
 · Automatically adds --collect-all=customtkinter if customtkinter is imported.
+
 · Cleans up temporary files (build/, temp icon), but keeps the .spec file on build failure for debugging.
+
 · Proper exit codes (0 = success, non‑zero = errors) for CI/CD usage.
 
 ---
