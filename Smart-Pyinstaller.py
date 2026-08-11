@@ -207,7 +207,7 @@ def main():
         exe_path = dist_dir / f"{exe_name}{exe_suffix}"
         ok(f"Build successful! File: {exe_path}")
     else:
-        error("Build failed. Check the error messages above.")
+        error("Build failed. Check the error messages above and examine the .spec file.")
 
     input("\nPress Enter to exit...")
     return 0
