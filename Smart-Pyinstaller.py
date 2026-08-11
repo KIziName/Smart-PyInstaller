@@ -211,7 +211,7 @@ def main():
         error("Build failed. Check the error messages above and examine the .spec file.")
 
     input("\nPress Enter to exit...")
-    return 20
+    return 0 if success else 20
 
 if __name__ == "__main__":
     sys.exit(main())
