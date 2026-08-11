@@ -107,7 +107,7 @@ def main():
     except ImportError:
         error("PyInstaller is not installed! Install it: pip install pyinstaller")
         input("\nPress Enter to exit...")
-        return 1
+        return 5
     
     main_candidates = [f for f in base_dir.glob("*.py") if f.stem.lower() == "main"]
     if main_candidates:
@@ -118,7 +118,8 @@ def main():
         if not all_py:
             error("No .py files found!")
             input("\nPress Enter to exit...")
-            return 1
+            return 10
+    
         print("Available scripts:")
         for i, f in enumerate(all_py, 1):
             print(f"  {i}. {f.name}")
@@ -183,7 +184,7 @@ def main():
     except Exception as e:
         error(f"Cannot create dist directory: {e}")
         input("\nPress Enter to exit...")
-        return 1
+        return 15
 
     # Run PyInstaller
     info("Running PyInstaller...")
@@ -210,7 +211,7 @@ def main():
         error("Build failed. Check the error messages above and examine the .spec file.")
 
     input("\nPress Enter to exit...")
-    return 0
+    return 20
 
 if __name__ == "__main__":
     sys.exit(main())
