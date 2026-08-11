@@ -195,8 +195,11 @@ def main():
         success = False
 
     # Cleanup temporary files
-    cleanup(base_dir, exe_name, icon_path if is_temp else None, keep_spec=keep_spec)
-
+    cleanup(base_dir, exe_name, icon_path if is_temp else None, keep_spec=keep_spec if success else True)
+    
+    if not success:
+        info("Build failed – .spec file kept for debugging.")
+        
     # Result
     print()
     if success:
