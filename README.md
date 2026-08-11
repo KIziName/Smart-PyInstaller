@@ -1,5 +1,5 @@
 Smart‑PyInstaller
-
+---
 Простой консольный сборщик EXE для Python‑проектов.
 
 ---
@@ -42,6 +42,7 @@ Smart‑PyInstaller
 
 
 Smart‑PyInstaller
+---
 
 A simple console‑based EXE builder for Python projects.
 
