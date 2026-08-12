@@ -180,8 +180,8 @@ def main():
     cmd += ["--uac-admin"] if (admin and is_windows) else []
 
     if project_uses_customtkinter(base_dir):
-    cmd.append("--collect-all=customtkinter")
-    info("customtkinter detected in project – added --collect-all")
+        cmd.append("--collect-all=customtkinter")
+        info("customtkinter detected in project – added --collect-all")
 
     cmd.append(str(script))
 
