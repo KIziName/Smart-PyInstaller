@@ -39,7 +39,6 @@ def crop_to_square(img):
     return img.crop((left, top, left+side, top+side))
 
 def find_and_convert_icon(base_dir):
-    
     ico_files = [f for f in base_dir.glob("*.ico") if f.name != "temp_icon.ico"]
     if ico_files:
         return ico_files[0], False
@@ -68,9 +67,21 @@ def find_and_convert_icon(base_dir):
         warn(f"Icon conversion failed: {e}")
         return None, False
 
+def project_uses_customtkinter(base_dir):
+    pattern = re.compile(r'^\s*(?:import\s+customtkinter|from\s+customtkinter\s+import)', re.MULTILINE)
+    for py_file in base_dir.glob("*.py"):
+        if py_file.name == Path(__file__).name:
+            continue
+        try:
+            content = py_file.read_text(encoding='utf-8', errors='ignore')
+            if pattern.search(content):
+                return True
+        except:
+            pass
+    return False       
+
 # ---------- CLEANUP ----------
 def cleanup(base_dir, exe_name, temp_icon, keep_spec=True):
-    #Icon
     if temp_icon and temp_icon.exists():
         try: temp_icon.unlink()
         except: pass
@@ -168,18 +179,9 @@ def main():
         warn("--uac-admin skipped (only available on Windows)")
     cmd += ["--uac-admin"] if (admin and is_windows) else []
 
-    # Auto-add --collect-all for customtkinter if detected
-    try:
-        with open(script, 'r', encoding='utf-8', errors='ignore') as f:
-            content = f.read()
-    except Exception as e:
-        warn(f"Could not read script file: {e}")
-        content = ""
-
-    
-    if re.search(r'^\s*(?:import\s+customtkinter|from\s+customtkinter\s+import)', content, re.MULTILINE):
-        cmd.append("--collect-all=customtkinter")
-        info("customtkinter detected – added --collect-all")
+    if project_uses_customtkinter(base_dir):
+    cmd.append("--collect-all=customtkinter")
+    info("customtkinter detected in project – added --collect-all")
 
     cmd.append(str(script))
 
