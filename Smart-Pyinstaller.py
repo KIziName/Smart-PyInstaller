@@ -69,7 +69,7 @@ def find_and_convert_icon(base_dir):
 
 def project_uses_customtkinter(base_dir):
     pattern = re.compile(r'^\s*(?:import\s+customtkinter|from\s+customtkinter\s+import)', re.MULTILINE)
-    for py_file in base_dir.glob("*.py"):
+    for py_file in base_dir.rglob("*.py"):
         if py_file.name == Path(__file__).name:
             continue
         try:
