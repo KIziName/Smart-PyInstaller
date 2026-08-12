@@ -3,6 +3,7 @@ import io
 import shutil
 import subprocess
 import time
+import re
 
 from pathlib import Path
 
@@ -175,7 +176,8 @@ def main():
         warn(f"Could not read script file: {e}")
         content = ""
 
-    if "customtkinter" in content:
+    
+    if re.search(r'^\s*(?:import\s+customtkinter|from\s+customtkinter\s+import)', content, re.MULTILINE):
         cmd.append("--collect-all=customtkinter")
         info("customtkinter detected – added --collect-all")
 
