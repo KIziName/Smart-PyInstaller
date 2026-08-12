@@ -2,6 +2,7 @@ import sys
 import io
 import shutil
 import subprocess
+import time
 
 from pathlib import Path
 
@@ -97,6 +98,8 @@ def main():
     print(f"{GREEN}   Smart-PyInstaller Builder       {RESET}")
     print(f"{GREEN}====================================={RESET}\n")
 
+    start_time = time.time()
+    
     base_dir = Path.cwd().resolve()
     is_windows = sys.platform == 'win32'
     info(f"Project folder: {base_dir}")
@@ -201,12 +204,17 @@ def main():
     if not success:
         info("Build failed – .spec file kept for debugging.")
         
+    elapsed = time.time() - start_time
+    info(f"Build time: {elapsed:.1f} seconds")   
+        
     # Result
     print()
     if success:
         exe_suffix = '.exe' if is_windows else ''
         exe_path = dist_dir / f"{exe_name}{exe_suffix}"
         ok(f"Build successful! File: {exe_path}")
+        size_mb = exe_path.stat().st_size / (1024 * 1024)
+        info(f"File size: {size_mb:.2f} MB")
     else:
         error("Build failed. Check the error messages above and examine the .spec file.")
 
