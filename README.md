@@ -38,9 +38,9 @@ Smart‑PyInstaller
 Требования
 ---
 
-· Python 3.6+
+· ***Python 3.7*** или выше
 
-· PyInstaller: `pip install pyinstaller`
+· `pip install pyinstaller`
 
 · Pillow (для иконок): `pip install pillow`
 
@@ -86,8 +86,8 @@ Feature
 Requirement
 ---
 
-· Python 3.6+
+· ***Python 3.7*** or higher
 
-· PyInstaller: `pip install pyinstaller`
+· `pip install pyinstaller`
 
 · Pillow (for icon conversion): `pip install pillow`
