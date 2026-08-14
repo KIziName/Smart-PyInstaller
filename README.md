@@ -9,7 +9,7 @@ Smart‑PyInstaller
 
 1. Поместите Smart‑Pyinstaller.py в папку проекта (рядом с main.py).
 2. Поместите ярлык в тот же проект, это может быть ico сразу,если не ico то сконвертируется в него.
-3. Запустите: python Smart‑Pyinstaller.py
+3. Запустите: Smart‑Pyinstaller.py
 4. Ответьте на вопросы – готовый exe появится в папке dist.
 
 Вариант 2 – через IDE (PyCharm и др.)
@@ -40,9 +40,9 @@ Smart‑PyInstaller
 
 · Python 3.6+
 
-· PyInstaller: pip install pyinstaller
+· PyInstaller: `pip install pyinstaller`
 
-· Pillow (опционально, для иконок): pip install pillow
+· Pillow (для иконок): `pip install pillow`
 
 
 Smart‑PyInstaller
@@ -57,7 +57,7 @@ Option 1 – from project folder
 
 1. Place Smart‑Pyinstaller.py in your project folder (next to main.py).
 2. Put your icon in the same folder – it can be a .ico file directly, or another image (PNG/JPG/etc.) which will be converted automatically.
-3. Run: python Smart‑Pyinstaller.py
+3. Run: Smart‑Pyinstaller.py
 4. Answer the prompts – the final .exe will appear in the dist folder.
 
 Option 2 – via IDE (PyCharm)
@@ -65,7 +65,7 @@ Option 2 – via IDE (PyCharm)
 1. Open your project in PyCharm and make sure the correct interpreter (with venv) is selected.
 2. Open the built‑in terminal (Alt+F12).
 3. Place the icon in the project folder beforehand.
-4. Run: python Smart‑Pyinstaller.py
+4. Run: Smart‑Pyinstaller.py
 5. Answer the prompts – the final .exe will be in the dist folder.
 
 Feature
@@ -88,6 +88,6 @@ Requirement
 
 · Python 3.6+
 
-· PyInstaller: pip install pyinstaller
+· PyInstaller: `pip install pyinstaller`
 
-· Pillow (optional, for icon conversion): pip install pillow
+· Pillow (for icon conversion): `pip install pillow`
