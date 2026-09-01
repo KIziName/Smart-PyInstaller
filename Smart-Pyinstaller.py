@@ -10,20 +10,18 @@ from pathlib import Path
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
-# -------- Colors --------
 USE_COLOR = sys.stdout.isatty()
 GREEN  = '\033[92m' if USE_COLOR else ''
 YELLOW = '\033[93m' if USE_COLOR else ''
 RED    = '\033[91m' if USE_COLOR else ''
 BLUE   = '\033[94m' if USE_COLOR else ''
 RESET  = '\033[0m'  if USE_COLOR else ''
-# ----------------------
+
 def info(msg):  print(f"{BLUE}[i]{RESET} {msg}")
 def ok(msg):    print(f"{GREEN}[✓]{RESET} {msg}")
 def warn(msg):  print(f"{YELLOW}[!]{RESET} {msg}")
 def error(msg): print(f"{RED}[✗]{RESET} {msg}")
 
-# ---------- ICON HANDLING ----------
 try:
     from PIL import Image
     PIL_AVAILABLE = True
@@ -80,19 +78,17 @@ def project_uses_customtkinter(base_dir):
             pass
     return False       
 
-# ---------- CLEANUP ----------
 def cleanup(base_dir, exe_name, temp_icon, keep_spec=True):
     if temp_icon and temp_icon.exists():
         try: temp_icon.unlink()
-        except: pass
-    #Build        
+        except: pass      
     build_dir = base_dir / "build"
     if build_dir.exists():
         try:
             shutil.rmtree(build_dir)
         except Exception as e:
             warn(f"Cleanup failed for build/ folder (it may be locked by antivirus or system): {e}")
-    #Spec
+    
     spec_file = base_dir / f"{exe_name}.spec"
     if keep_spec:
         if spec_file.exists():
@@ -104,7 +100,6 @@ def cleanup(base_dir, exe_name, temp_icon, keep_spec=True):
             except Exception as e:
                 warn(f"Failed to remove {exe_name}.spec: {e}")           
 
-# ---------- MAIN ----------
 def main():
     print(f"{GREEN}====================================={RESET}")
     print(f"{GREEN}   Smart-PyInstaller Builder       {RESET}")
@@ -116,7 +111,6 @@ def main():
     is_windows = sys.platform == 'win32'
     info(f"Project folder: {base_dir}")
 
-    # Check if PyInstaller is installed
     try:
         import PyInstaller
     except ImportError:
@@ -145,7 +139,6 @@ def main():
             warn("Invalid choice – using the first script.")
             script = all_py[0]
 
-    # EXE name
     default_name = script.stem
     exe_name = input(f"EXE name (Enter = {default_name}): ").strip() or default_name
     exe_name = exe_name.strip(' .')
@@ -163,7 +156,6 @@ def main():
     #Spec 
     keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
     
-    # Build the PyInstaller command
     cmd = [
         sys.executable,
         "-m",
@@ -193,7 +185,6 @@ def main():
         input("\nPress Enter to exit...")
         return 15
 
-    # Run PyInstaller
     info("Running PyInstaller...")
     success = False
     try:
@@ -202,7 +193,6 @@ def main():
     except subprocess.CalledProcessError:
         success = False
 
-    # Cleanup temporary files
     cleanup(base_dir, exe_name, icon_path if is_temp else None, keep_spec=keep_spec if success else True)
     
     if not success:
@@ -211,7 +201,6 @@ def main():
     elapsed = time.time() - start_time
     info(f"Build time: {elapsed:.1f} seconds")   
         
-    # Result
     print()
     if success:
         exe_suffix = '.exe' if is_windows else ''
