@@ -196,7 +196,6 @@ def main():
     icon_path, is_temp = find_and_convert_icon(base_dir)
     keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
     include_numpy = input("Include NumPy explicitly? (y/N, Enter: N): ").strip().lower() == 'y'
-
     uses_pil_in_code = project_uses_pil(base_dir)
     
     if uses_pil_in_code:
