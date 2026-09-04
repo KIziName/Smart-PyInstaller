@@ -4,6 +4,7 @@ import shutil
 import subprocess
 import sys
 import time
+
 from pathlib import Path
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
@@ -15,7 +16,6 @@ YELLOW = '\033[93m' if USE_COLOR else ''
 RED = '\033[91m' if USE_COLOR else ''
 BLUE = '\033[94m' if USE_COLOR else ''
 RESET = '\033[0m' if USE_COLOR else ''
-
 
 def info(msg):
     print(f"{BLUE}[i]{RESET} {msg}")
@@ -288,7 +288,6 @@ def main():
 
     input("\nPress Enter to exit...")
     return 0 if success else 20
-
 
 if __name__ == "__main__":
     sys.exit(main())
