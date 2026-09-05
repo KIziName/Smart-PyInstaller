@@ -17,14 +17,10 @@ RED = '\033[91m' if USE_COLOR else ''
 BLUE = '\033[94m' if USE_COLOR else ''
 RESET = '\033[0m' if USE_COLOR else ''
 
-def info(msg):
-    print(f"{BLUE}[i]{RESET} {msg}")
-def ok(msg):
-    print(f"{GREEN}[✓]{RESET} {msg}")
-def warn(msg):
-    print(f"{YELLOW}[!]{RESET} {msg}")
-def error(msg):
-    print(f"{RED}[✗]{RESET} {msg}")
+def info(msg): print(f"{BLUE}[i]{RESET} {msg}")
+def ok(msg): print(f"{GREEN}[✓]{RESET} {msg}")
+def warn(msg): print(f"{YELLOW}[!]{RESET} {msg}")
+def error(msg): print(f"{RED}[✗]{RESET} {msg}")
 
 try:
     from PIL import Image
