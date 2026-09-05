@@ -107,6 +107,27 @@ def project_uses_pil(base_dir):
         except Exception:
             pass
     return False
+    
+def ask_build_options(base_dir):
+    console = input("Show console window? (y/N, Enter: N): ").strip().lower() == 'y'
+    admin = input("Request administrator privileges on launch? (y/N, Enter: N): ").strip().lower() == 'y'
+    keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
+    include_numpy = input("Include NumPy explicitly? (y/N, Enter: N): ").strip().lower() == 'y'
+    
+    uses_pil_in_code = project_uses_pil(base_dir)
+    if uses_pil_in_code:
+        warn("PIL (Pillow) imports detected in your project source code.")
+        include_pil = input("Include PIL in the build? (y/N, Enter: N): ").strip().lower() == 'y'
+    else:
+        include_pil = input("Include PIL (Pillow) in the build? (y/N, Enter: N): ").strip().lower() == 'y'
+    
+    return {
+        'console': console,
+        'admin': admin,
+        'keep_spec': keep_spec,
+        'include_numpy': include_numpy,
+        'include_pil': include_pil,
+    }
 
 def cleanup(base_dir, exe_name, temp_icon, keep_spec=True):
     if temp_icon and temp_icon.exists():
@@ -185,19 +206,9 @@ def main():
         exe_name = default_name
     for ch in r'\/:*?"<>|':
         exe_name = exe_name.replace(ch, '_')
-
-    console = input("Show console window? (y/N, Enter: N): ").strip().lower() == 'y'
-    admin = input("Request administrator privileges on launch? (y/N, Enter: N): ").strip().lower() == 'y'
+        
+    options = ask_build_options(base_dir)
     icon_path, is_temp = find_and_convert_icon(base_dir)
-    keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
-    include_numpy = input("Include NumPy explicitly? (y/N, Enter: N): ").strip().lower() == 'y'
-    uses_pil_in_code = project_uses_pil(base_dir)
-    
-    if uses_pil_in_code:
-        warn("PIL (Pillow) imports detected in your project source code.")
-        include_pil = input("Include PIL in the build? (y/N, Enter: N): ").strip().lower() == 'y'
-    else:
-        include_pil = input("Include PIL (Pillow) in the build? (y/N, Enter: N): ").strip().lower() == 'y'
 
     cmd = [
         sys.executable,
