@@ -1,9 +1,8 @@
-Smart‑PyInstaller
----
+## Smart‑PyInstaller
+
 Простой консольный сборщик EXE для Python‑проектов.
 
-Использование
----
+## Использование
 
 Вариант 1 – из папки 
 
@@ -20,8 +19,7 @@ Smart‑PyInstaller
 4. Выполните команду: python Smart‑Pyinstaller.py
 5. Ответьте на вопросы – итоговый exe в папке dist.
 
-Возможности
----
+## Возможности
 
 · Автоопределение main.py (или выбор другого скрипта).
 
@@ -35,23 +33,19 @@ Smart‑PyInstaller
 
 · Корректные коды возврата (0 – успех, ненулевые – ошибки) для CI/CD.
 
-Требования
----
+## Требования
 
-· ***Python 3.7*** или выше
+- ***Python 3.7*** или выше
 
-· `pip install pyinstaller`
-
-· Pillow (для иконок): `pip install pillow`
+- `pip install pyinstaller`
+- `pip install pillow`
 
 
-Smart‑PyInstaller
----
+## Smart‑PyInstaller
 
 A simple console‑based EXE builder for Python projects.
 
-Usage
----
+## Usage
 
 Option 1 – from project folder
 
@@ -68,8 +62,7 @@ Option 2 – via IDE (PyCharm)
 4. Run: Smart‑Pyinstaller.py
 5. Answer the prompts – the final .exe will be in the dist folder.
 
-Feature
----
+## Feature
 
 · Auto‑detects main.py (or lets you choose another script).
 
@@ -83,11 +76,9 @@ Feature
 
 · Proper exit codes (0 = success, non‑zero = errors) for CI/CD usage.
 
-Requirement
----
+## Requirement
 
-· ***Python 3.7*** or higher
+- ***Python 3.7*** or higher
 
-· `pip install pyinstaller`
-
-· Pillow (for icon conversion): `pip install pillow`
+- `pip install pyinstaller`
+- `pip install pillow`
