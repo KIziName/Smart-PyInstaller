@@ -219,25 +219,25 @@ def main():
         f"--name={exe_name}"
     ]
 
-    if not console:
+    if not options['console']:
         cmd.append("--noconsole")
 
     if icon_path:
         cmd.extend(["--icon", str(icon_path)])
-    if admin:
+    if options['admin']:
         if is_windows:
             cmd.append("--uac-admin")
         else:
             warn("--uac-admin skipped (only available on Windows)")
 
-    if include_numpy:
+    if options['include_numpy']:
         cmd.append("--collect-all=numpy")
         info("NumPy will be bundled (--collect-all=numpy)")
     else:
         cmd.append("--exclude-module=numpy")
         warn("NumPy will be EXCLUDED. If your code actually needs it, the build will fail.")
 
-    if include_pil:
+    if options['include_pil']:
         cmd.append("--collect-all=PIL")
         info("PIL will be bundled (--collect-all=PIL)")
     else:
@@ -249,7 +249,7 @@ def main():
         info("customtkinter detected in project – added --collect-all")
 
     cmd.append(str(script))
-
+    
     dist_dir = base_dir / "dist"
     try:
         dist_dir.mkdir(exist_ok=True)
@@ -271,9 +271,9 @@ def main():
         base_dir,
         exe_name,
         icon_path if is_temp else None,
-        keep_spec=keep_spec if success else True
+        keep_spec=options['keep_spec'] if success else True
     )
-
+    
     if not success:
         info("Build failed – .spec file kept for debugging.")
 
