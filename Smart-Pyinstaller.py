@@ -7,6 +7,9 @@ import time
 
 from pathlib import Path
 
+ICON_SIZES = [(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)]
+IMAGE_EXTS = ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp"]
+
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
@@ -43,7 +46,7 @@ def find_and_convert_icon(base_dir):
         return ico_files[0], False
 
     images = []
-    for ext in ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp"]:
+    for ext in IMAGE_EXTS:
         images.extend(base_dir.glob(ext))
 
     if not images:
@@ -60,16 +63,12 @@ def find_and_convert_icon(base_dir):
         ico_path = base_dir / "temp_icon.ico"
         with Image.open(img_path) as img:
             square = crop_to_square(img)
-            sizes = [
-                (256, 256), (128, 128), (64, 64),
-                (48, 48), (32, 32), (16, 16)
-            ]
             resample = getattr(Image, 'Resampling', Image).LANCZOS
-            imgs = [square.resize(s, resample) for s in sizes]
+            imgs = [square.resize(s, resample) for s in ICON_SIZES]
             imgs[0].save(
                 ico_path,
                 format="ICO",
-                sizes=[s for s in sizes],
+                sizes=ICON_SIZES,
                 append_images=imgs[1:]
             )
         return ico_path, True
