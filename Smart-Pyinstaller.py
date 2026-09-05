@@ -10,6 +10,7 @@ from pathlib import Path
 ICON_SIZES = [(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)]
 IMAGE_EXTS = ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp"]
 
+if hasattr(sys.stdout, 'buffer'):
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
@@ -76,25 +77,9 @@ def find_and_convert_icon(base_dir):
         warn(f"Icon conversion failed: {e}")
         return None, False
 
-def project_uses_customtkinter(base_dir):
+def project_uses_module(base_dir: Path, module_name: str) -> bool:
     pattern = re.compile(
-        r'^\s*(?:import\s+customtkinter|from\s+customtkinter\s+import)',
-        re.MULTILINE
-    )
-    for py_file in base_dir.rglob("*.py"):
-        if py_file.name == Path(__file__).name:
-            continue
-        try:
-            content = py_file.read_text(encoding='utf-8', errors='ignore')
-            if pattern.search(content):
-                return True
-        except Exception:
-            pass
-    return False
-
-def project_uses_pil(base_dir):
-    pattern = re.compile(
-        r'^\s*(?:import\s+PIL|from\s+PIL\s+import)',
+        rf'^\s*(?:import\s+{module_name}|from\s+{module_name}\s+import)',
         re.MULTILINE
     )
     for py_file in base_dir.rglob("*.py"):
@@ -114,8 +99,8 @@ def ask_build_options(base_dir):
     keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
     include_numpy = input("Include NumPy explicitly? (y/N, Enter: N): ").strip().lower() == 'y'
     
-    uses_pil_in_code = project_uses_pil(base_dir)
-    if uses_pil_in_code:
+    uses_pil = project_uses_module(base_dir, 'PIL')
+    if uses_pil:  
         warn("PIL (Pillow) imports detected in your project source code.")
         include_pil = input("Include PIL in the build? (y/N, Enter: N): ").strip().lower() == 'y'
     else:
@@ -244,9 +229,9 @@ def main():
         cmd.append("--exclude-module=PIL")
         warn("PIL will be EXCLUDED. If your code actually needs it, the build will fail.")
 
-    if project_uses_customtkinter(base_dir):
+    if project_uses_module(base_dir, 'customtkinter'):
         cmd.append("--collect-all=customtkinter")
-        info("customtkinter detected in project – added --collect-all")
+        info("customtkinter detected in project – added --collect-all") 
 
     cmd.append(str(script))
     
