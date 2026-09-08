@@ -31,6 +31,7 @@ try:
     PIL_AVAILABLE = True
 except ImportError:
     PIL_AVAILABLE = False
+    
 
 def crop_to_square(img):
     w, h = img.size
@@ -40,6 +41,7 @@ def crop_to_square(img):
     left = (w - side) // 2
     top = (h - side) // 2
     return img.crop((left, top, left + side, top + side))
+    
 
 def find_and_convert_icon(base_dir):
     ico_files = [f for f in base_dir.glob("*.ico") if f.name != "temp_icon.ico"]
@@ -76,6 +78,7 @@ def find_and_convert_icon(base_dir):
     except Exception as e:
         warn(f"Icon conversion failed: {e}")
         return None, False
+        
 
 def project_uses_module(base_dir: Path, module_name: str) -> bool:
     pattern = re.compile(
@@ -92,6 +95,7 @@ def project_uses_module(base_dir: Path, module_name: str) -> bool:
         except Exception:
             pass
     return False
+    
     
 def ask_build_options(base_dir):
     console = input("Show console window? (y/N, Enter: N): ").strip().lower() == 'y'
@@ -113,6 +117,7 @@ def ask_build_options(base_dir):
         'include_numpy': include_numpy,
         'include_pil': include_pil,
     }
+
 
 def cleanup(base_dir, exe_name, temp_icon, keep_spec=True):
     if temp_icon and temp_icon.exists():
@@ -140,6 +145,7 @@ def cleanup(base_dir, exe_name, temp_icon, keep_spec=True):
                 spec_file.unlink()
             except Exception as e:
                 warn(f"Failed to remove {exe_name}.spec: {e}")
+                
 
 def main():
     print(f"{GREEN}====================================={RESET}")
@@ -236,6 +242,7 @@ def main():
     cmd.append(str(script))
     
     dist_dir = base_dir / "dist"
+    
     try:
         dist_dir.mkdir(exist_ok=True)
     except Exception as e:
@@ -277,6 +284,7 @@ def main():
 
     input("\nPress Enter to exit...")
     return 0 if success else 20
+    
 
 if __name__ == "__main__":
     sys.exit(main())
