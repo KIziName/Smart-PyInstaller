@@ -1,6 +1,6 @@
 ## Smart‑PyInstaller
 
-Простой консольный сборщик EXE для Python‑проектов.
+Простой консольный сборщик EXE-ELF для Python‑проектов.
 
 ## Использование
 
@@ -9,7 +9,7 @@
 1. Поместите Smart‑Pyinstaller.py в папку проекта (рядом с main.py).
 2. Поместите ярлык в тот же проект, это может быть ico сразу,если не ico то сконвертируется в него.
 3. Запустите: Smart‑Pyinstaller.py
-4. Ответьте на вопросы – готовый exe появится в папке dist.
+4. Ответьте на вопросы – готовый exe-elf появится в папке dist.
 
 Вариант 2 – через IDE (PyCharm и др.)
 
@@ -17,7 +17,7 @@
 2. Откройте встроенный терминал (Alt+F12)
 3. Ярлык должен быть сразу помешён в проект.
 4. Выполните команду: python Smart‑Pyinstaller.py
-5. Ответьте на вопросы – итоговый exe в папке dist.
+5. Ответьте на вопросы – итоговый exe-elf в папке dist.
 
 ## Возможности
 
@@ -43,7 +43,7 @@
 
 ## Smart‑PyInstaller
 
-A simple console‑based EXE builder for Python projects.
+A simple console‑based EXE-ELF builder for Python projects.
 
 ## Usage
 
@@ -52,7 +52,7 @@ Option 1 – from project folder
 1. Place Smart‑Pyinstaller.py in your project folder (next to main.py).
 2. Put your icon in the same folder – it can be a .ico file directly, or another image (PNG/JPG/etc.) which will be converted automatically.
 3. Run: Smart‑Pyinstaller.py
-4. Answer the prompts – the final .exe will appear in the dist folder.
+4. Answer the prompts – the final .exe-elf will appear in the dist folder.
 
 Option 2 – via IDE (PyCharm)
 
@@ -60,7 +60,7 @@ Option 2 – via IDE (PyCharm)
 2. Open the built‑in terminal (Alt+F12).
 3. Place the icon in the project folder beforehand.
 4. Run: Smart‑Pyinstaller.py
-5. Answer the prompts – the final .exe will be in the dist folder.
+5. Answer the prompts – the final .exe-elf will be in the dist folder.
 
 ## Feature
 
