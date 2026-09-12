@@ -235,10 +235,16 @@ def main():
     if options.include_numpy:
         cmd.append("--collect-all=numpy")
         info("NumPy will be bundled (--collect-all=numpy)")
+    else:
+        cmd.append("--exclude-module=numpy")
+        info("NumPy will be excluded (--exclude-module=numpy)")
 
     if options.include_pil:
         cmd.append("--collect-all=PIL")
         info("PIL will be bundled (--collect-all=PIL)")
+    else:
+        cmd.append("--exclude-module=PIL")
+        info("PIL will be excluded (--exclude-module=PIL)")
 
     if 'customtkinter' in used_modules:
         cmd.append("--collect-all=customtkinter")
