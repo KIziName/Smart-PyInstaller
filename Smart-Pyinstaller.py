@@ -11,6 +11,13 @@ ICON_SIZES = [(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)]
 IMAGE_EXTS = ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp"]
 IGNORED_DIRS = {'.git', 'venv', '.venv', 'env', '.env',
                 'build', 'dist', '__pycache__', 'site-packages'}
+@dataclass
+class BuildOptions:
+    console: bool = False
+    admin: bool = False
+    keep_spec: bool = False
+    include_numpy: bool = False
+    include_pil: bool = False
 
 if hasattr(sys.stdout, 'buffer'):
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
@@ -103,26 +110,17 @@ def project_uses_module(base_dir: Path, module_name: str) -> bool:
     
     
 def ask_build_options(base_dir):
-    console = input("Show console window? (y/N, Enter: N): ").strip().lower() == 'y'
-    admin = input("Request administrator privileges on launch? (y/N, Enter: N): ").strip().lower() == 'y'
-    keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
-    include_numpy = input("Include NumPy explicitly? (y/N, Enter: N): ").strip().lower() == 'y'
-    
-    uses_pil = project_uses_module(base_dir, 'PIL')
-    if uses_pil:  
-        warn("PIL (Pillow) imports detected in your project source code.")
-        include_pil = input("Include PIL in the build? (y/N, Enter: N): ").strip().lower() == 'y'
-    else:
-        include_pil = input("Include PIL (Pillow) in the build? (y/N, Enter: N): ").strip().lower() == 'y'
-    
-    return {
-        'console': console,
-        'admin': admin,
-        'keep_spec': keep_spec,
-        'include_numpy': include_numpy,
-        'include_pil': include_pil,
-    }
+    options = BuildOptions()
+    options.console = input("Show console window? (y/N, Enter: N): ").strip().lower() == 'y'
+    options.admin = input("Request administrator privileges on launch? (y/N, Enter: N): ").strip().lower() == 'y'
+    options.keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
+    options.include_numpy = input("Include NumPy explicitly? (y/N, Enter: N): ").strip().lower() == 'y'
 
+    if project_uses_module(base_dir, 'PIL'):
+        warn("PIL (Pillow) imports detected in your project source code.")
+    options.include_pil = input("Include PIL (Pillow) in the build? (y/N, Enter: N): ").strip().lower() == 'y'
+
+    return options
 
 def cleanup(base_dir, exe_name, temp_icon, keep_spec=True):
     if temp_icon and temp_icon.exists():
