@@ -109,7 +109,7 @@ def find_used_modules(base_dir: Path, names: set[str]) -> set[str]:
     return found
     
     
-def ask_build_options(base_dir):
+def ask_build_options(base_dir, used_modules):
     options = BuildOptions()
     options.console = input("Show console window? (y/N, Enter: N): ").strip().lower() == 'y'
     options.admin = input("Request administrator privileges on launch? (y/N, Enter: N): ").strip().lower() == 'y'
@@ -205,7 +205,8 @@ def main():
     for ch in r'\/:*?"<>|':
         exe_name = exe_name.replace(ch, '_')
         
-    options = ask_build_options(base_dir)
+    used_modules = find_used_modules(base_dir, {'PIL', 'customtkinter', 'numpy'})
+    options = ask_build_options(base_dir, used_modules)
     icon_path, is_temp = find_and_convert_icon(base_dir)
 
     cmd = [
