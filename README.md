@@ -27,7 +27,7 @@
 
 · Настройка консоли (--noconsole) и прав администратора (--uac-admin).
 
-· Автоматическое добавление --collect-all=customtkinter при обнаружении.
+· Автоматическое добавление --collect-all=Customtkinter,Numpy,PIL при обнаружении.
 
 · Очистка временных файлов (build/, временная иконка), но .spec сохраняется при ошибке для отладки.
 
@@ -70,7 +70,7 @@ Option 2 – via IDE (PyCharm)
 
 · Console mode (--noconsole) and admin rights (--uac-admin) configurable.
 
-· Automatically adds --collect-all=customtkinter if customtkinter is imported.
+· Automatically adds --collect-all=Customtkinter,Numpy,PIL is imported.
 
 · Cleans up temporary files (build/, temp icon), but keeps the .spec file on build failure for debugging.
 
