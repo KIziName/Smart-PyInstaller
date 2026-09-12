@@ -105,7 +105,8 @@ def find_used_modules(base_dir: Path, names: set[str]) -> set[str]:
                 content,
                 re.MULTILINE
              ):
-        return found
+                found.add(name)
+    return found
     
     
 def ask_build_options(base_dir, used_modules):
