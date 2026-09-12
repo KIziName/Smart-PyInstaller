@@ -219,25 +219,25 @@ def main():
         f"--name={exe_name}"
     ]
 
-    if not options.console
+    if not options.console:
         cmd.append("--noconsole")
 
     if icon_path:
         cmd.extend(["--icon", str(icon_path)])
-    if options.admin
+    if options.admin:
         if is_windows:
             cmd.append("--uac-admin")
         else:
             warn("--uac-admin skipped (only available on Windows)")
 
-    if options.include_numpy
+    if options.include_numpy:
         cmd.append("--collect-all=numpy")
         info("NumPy will be bundled (--collect-all=numpy)")
     else:
         cmd.append("--exclude-module=numpy")
         warn("NumPy will be EXCLUDED. If your code actually needs it, the build will fail.")
 
-    if options.include_pil
+    if options.include_pil:
         cmd.append("--collect-all=PIL")
         info("PIL will be bundled (--collect-all=PIL)")
     else:
