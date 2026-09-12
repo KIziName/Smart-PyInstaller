@@ -288,8 +288,8 @@ def main():
     else:
         error("Build failed. Check the error messages above and examine the .spec file.")
 
-input("\nPress Enter to exit...")
-return 0 if success else 20
+    input("\nPress Enter to exit...")
+    return 0 if success else 20
     
 
 if __name__ == "__main__":
