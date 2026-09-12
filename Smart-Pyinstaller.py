@@ -77,14 +77,7 @@ def find_and_convert_icon(base_dir):
         ico_path = base_dir / "temp_icon.ico"
         with Image.open(img_path) as img:
             square = crop_to_square(img)
-            resample = getattr(Image, 'Resampling', Image).LANCZOS
-            imgs = [square.resize(s, resample) for s in ICON_SIZES]
-            imgs[0].save(
-                ico_path,
-                format="ICO",
-                sizes=ICON_SIZES,
-                append_images=imgs[1:]
-            )
+            square.save(ico_path, format="ICO", sizes=ICON_SIZES)
         return ico_path, True
     except Exception as e:
         warn(f"Icon conversion failed: {e}")
