@@ -121,12 +121,6 @@ def ask_build_options(base_dir, used_modules):
     options.console = input("Show console window? (y/N, Enter: N): ").strip().lower() == 'y'
     options.admin = input("Request administrator privileges on launch? (y/N, Enter: N): ").strip().lower() == 'y'
     options.keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
-    options.include_numpy = input("Include NumPy explicitly? (y/N, Enter: N): ").strip().lower() == 'y'
-
-    if 'PIL' in used_modules:
-        warn("PIL (Pillow) imports detected in your project source code.")
-    options.include_pil = input("Include PIL (Pillow) in the build? (y/N, Enter: N): ").strip().lower() == 'y'
-
     return options
 
 def cleanup(base_dir, exe_name, temp_icon, keep_spec=True):
@@ -215,6 +209,14 @@ def main():
     used_modules = find_used_modules(base_dir, {'PIL', 'customtkinter', 'numpy'})
     options = ask_build_options(base_dir, used_modules)
     icon_path, is_temp = find_and_convert_icon(base_dir)
+    
+    if 'numpy' in used_modules:
+        options.include_numpy = True
+        info("NumPy detected in project – will be bundled (--collect-all=numpy)")
+        
+    if 'PIL' in used_modules:
+        options.include_pil = True
+        info("PIL detected in project – will be bundled (--collect-all=PIL)")
 
     cmd = [
         sys.executable,
