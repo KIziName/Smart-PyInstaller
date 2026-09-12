@@ -224,6 +224,7 @@ def main():
 
     if icon_path:
         cmd.extend(["--icon", str(icon_path)])
+        
     if options.admin:
         if is_windows:
             cmd.append("--uac-admin")
@@ -233,16 +234,10 @@ def main():
     if options.include_numpy:
         cmd.append("--collect-all=numpy")
         info("NumPy will be bundled (--collect-all=numpy)")
-    else:
-        cmd.append("--exclude-module=numpy")
-        warn("NumPy will be EXCLUDED. If your code actually needs it, the build will fail.")
 
     if options.include_pil:
         cmd.append("--collect-all=PIL")
         info("PIL will be bundled (--collect-all=PIL)")
-    else:
-        cmd.append("--exclude-module=PIL")
-        warn("PIL will be EXCLUDED. If your code actually needs it, the build will fail.")
 
     if project_uses_module(base_dir, 'customtkinter'):
         cmd.append("--collect-all=customtkinter")
