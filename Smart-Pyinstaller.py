@@ -9,6 +9,8 @@ from pathlib import Path
 
 ICON_SIZES = [(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)]
 IMAGE_EXTS = ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp"]
+IGNORED_DIRS = {'.git', 'venv', '.venv', 'env', '.env',
+                'build', 'dist', '__pycache__', 'site-packages'}
 
 if hasattr(sys.stdout, 'buffer'):
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
@@ -85,8 +87,11 @@ def project_uses_module(base_dir: Path, module_name: str) -> bool:
         rf'^\s*(?:import\s+{module_name}|from\s+{module_name}\s+import)',
         re.MULTILINE
     )
+    self_name = Path(__file__).name
     for py_file in base_dir.rglob("*.py"):
-        if py_file.name == Path(__file__).name:
+        if any(part in IGNORED_DIRS for part in py_file.parts):
+            continue
+        if py_file.name == self_name:
             continue
         try:
             content = py_file.read_text(encoding='utf-8', errors='ignore')
