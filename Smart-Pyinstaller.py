@@ -99,9 +99,13 @@ def find_used_modules(base_dir: Path, names: set[str]) -> set[str]:
         except Exception:
             continue
         for name in names:
-            if re.search(rf'^\s*(?:import\s+{name}|from\s+{name}\s+import)', content, re.MULTILINE):
-                found.add(name)
-    return found
+            if re.search(
+                rf'^\s*(?:import\s+{re.escape(name)}(?:\s|$|\.)|'
+                rf'from\s+{re.escape(name)}(?:\s|\.)\s+import)',
+                content,
+                re.MULTILINE
+             ):
+        return found
     
     
 def ask_build_options(base_dir, used_modules):
