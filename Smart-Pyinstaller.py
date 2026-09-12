@@ -211,13 +211,10 @@ def main():
     icon_path, is_temp = find_and_convert_icon(base_dir)
     
     if 'numpy' in used_modules:
-        options.include_numpy = True
-        info("NumPy detected in project – will be bundled (--collect-all=numpy)")
-        
+        options.include_numpy = True    
     if 'PIL' in used_modules:
         options.include_pil = True
-        info("PIL detected in project – will be bundled (--collect-all=PIL)")
-
+     
     cmd = [
         sys.executable,
         "-m",
