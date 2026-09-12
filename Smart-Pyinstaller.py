@@ -100,14 +100,19 @@ def find_used_modules(base_dir: Path, names: set[str]) -> set[str]:
             content = py_file.read_text(encoding='utf-8', errors='ignore')
         except Exception:
             continue
+            
         for name in names:
-            if re.search(
-                rf'^\s*(?:import\s+{re.escape(name)}(?:\s|$|\.)|'
-                rf'from\s+{re.escape(name)}(?:\s|\.)\s+import)',
-                content,
-                re.MULTILINE
-             ):
+            pattern = re.compile(
+                rf'^\s*(?:'
+                rf'import\s+{re.escape(name)}(?:\s|$|\.)'
+                rf'|'
+                rf'from\s+{re.escape(name)}(?:\s+|\.|$)'
+                rf')',
+                re.MULTILINE,
+            )
+            if pattern.search(content):
                 found.add(name)
+                
     return found
     
     
