@@ -186,13 +186,13 @@ def main():
             
         choice = input("Enter the number of the script to build: ").strip()
         try:
-           idx = int(choice)
-           if not (1 <= idx <= len(all_py)):
-               raise ValueError
-           script = all_py[idx - 1]
-       except Exception:
-           warn("Invalid choice – using the first script.")
-           script = all_py[0]
+            idx = int(choice)
+            if not (1 <= idx <= len(all_py)):
+                raise ValueError
+            script = all_py[idx - 1]
+        except Exception:
+            warn("Invalid choice – using the first script.")
+            script = all_py[0]
 
     default_name = script.stem
     exe_name = input(f"EXE name (Enter = {default_name}): ").strip() or default_name
