@@ -277,17 +277,19 @@ def main():
 
     print()
     if success:
-    exe_suffix = '.exe' if is_windows else ''
-    exe_path = dist_dir / f"{exe_name}{exe_suffix}"
-    if exe_path.exists():
-        ok(f"Build successful! File: {exe_path}")
-        size_mb = exe_path.stat().st_size / (1024 * 1024)
-        info(f"File size: {size_mb:.2f} MB")
+        exe_suffix = '.exe' if is_windows else ''
+        exe_path = dist_dir / f"{exe_name}{exe_suffix}"
+        if exe_path.exists():
+            ok(f"Build successful! File: {exe_path}")
+            size_mb = exe_path.stat().st_size / (1024 * 1024)
+            info(f"File size: {size_mb:.2f} MB")
+        else:
+            warn(f"Build reported success, but {exe_path} not found.")
     else:
-        warn(f"Build reported success, but {exe_path} not found.")
+        error("Build failed. Check the error messages above and examine the .spec file.")
 
-    input("\nPress Enter to exit...")
-    return 0 if success else 20
+input("\nPress Enter to exit...")
+return 0 if success else 20
     
 
 if __name__ == "__main__":
