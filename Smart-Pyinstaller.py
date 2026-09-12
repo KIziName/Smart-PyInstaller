@@ -5,6 +5,7 @@ import subprocess
 import sys
 import time
 
+from dataclasses import dataclass
 from pathlib import Path
 
 ICON_SIZES = [(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)]
