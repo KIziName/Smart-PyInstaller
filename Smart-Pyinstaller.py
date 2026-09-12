@@ -95,10 +95,10 @@ def find_used_modules(base_dir: Path, names: set[str]) -> set[str]:
     found = set()
     self_name = Path(__file__).name
     for py_file in base_dir.rglob("*.py"):
-    rel_parts = py_file.relative_to(base_dir).parts
-    dir_parts = rel_parts[:-1]
-    if any(part in IGNORED_DIRS for part in dir_parts):
-        continue
+        rel_parts = py_file.relative_to(base_dir).parts
+        dir_parts = rel_parts[:-1]
+        if any(part in IGNORED_DIRS for part in dir_parts):
+            continue
         if py_file.name == self_name:
             continue
         try:
