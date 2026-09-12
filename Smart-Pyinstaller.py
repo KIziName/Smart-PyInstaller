@@ -7,6 +7,7 @@ import time
 
 from dataclasses import dataclass
 from pathlib import Path
+from __future__ import annotations
 
 ICON_SIZES = [(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)]
 IMAGE_EXTS = ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp"]
