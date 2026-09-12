@@ -10,8 +10,9 @@ from pathlib import Path
 
 ICON_SIZES = [(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)]
 IMAGE_EXTS = ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp"]
-IGNORED_DIRS = {'.git', 'venv', '.venv', 'env', '.env',
-                'build', 'dist', '__pycache__', 'site-packages'}
+IGNORED_DIRS = {'.git', 'venv', '.venv', 'env', '.env','build', 'dist', '__pycache__', 'site-packages'}
+
+
 @dataclass
 class BuildOptions:
     console: bool = False
@@ -218,25 +219,25 @@ def main():
         f"--name={exe_name}"
     ]
 
-    if not options['console']:
+    if not options.console
         cmd.append("--noconsole")
 
     if icon_path:
         cmd.extend(["--icon", str(icon_path)])
-    if options['admin']:
+    if options.admin
         if is_windows:
             cmd.append("--uac-admin")
         else:
             warn("--uac-admin skipped (only available on Windows)")
 
-    if options['include_numpy']:
+    if options.include_numpy
         cmd.append("--collect-all=numpy")
         info("NumPy will be bundled (--collect-all=numpy)")
     else:
         cmd.append("--exclude-module=numpy")
         warn("NumPy will be EXCLUDED. If your code actually needs it, the build will fail.")
 
-    if options['include_pil']:
+    if options.include_pil
         cmd.append("--collect-all=PIL")
         info("PIL will be bundled (--collect-all=PIL)")
     else:
@@ -271,7 +272,7 @@ def main():
         base_dir,
         exe_name,
         icon_path if is_temp else None,
-        keep_spec=options['keep_spec'] if success else True
+        keep_spec=options.keep_spec if success else True
     )
     
     if not success:
