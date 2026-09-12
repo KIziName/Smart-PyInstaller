@@ -91,11 +91,8 @@ def find_and_convert_icon(base_dir):
         return None, False
         
 
-def project_uses_module(base_dir: Path, module_name: str) -> bool:
-    pattern = re.compile(
-        rf'^\s*(?:import\s+{module_name}|from\s+{module_name}\s+import)',
-        re.MULTILINE
-    )
+def find_used_modules(base_dir: Path, names: set[str]) -> set[str]:
+    found = set()
     self_name = Path(__file__).name
     for py_file in base_dir.rglob("*.py"):
         if any(part in IGNORED_DIRS for part in py_file.parts):
@@ -104,11 +101,12 @@ def project_uses_module(base_dir: Path, module_name: str) -> bool:
             continue
         try:
             content = py_file.read_text(encoding='utf-8', errors='ignore')
-            if pattern.search(content):
-                return True
         except Exception:
-            pass
-    return False
+            continue
+        for name in names:
+            if re.search(rf'^\s*(?:import\s+{name}|from\s+{name}\s+import)', content, re.MULTILINE):
+                found.add(name)
+    return found
     
     
 def ask_build_options(base_dir):
@@ -118,7 +116,7 @@ def ask_build_options(base_dir):
     options.keep_spec = input("Keep .spec file after build for later use? (y/N, Enter: N): ").strip().lower() == 'y'
     options.include_numpy = input("Include NumPy explicitly? (y/N, Enter: N): ").strip().lower() == 'y'
 
-    if project_uses_module(base_dir, 'PIL'):
+    if 'PIL' in used_modules:
         warn("PIL (Pillow) imports detected in your project source code.")
     options.include_pil = input("Include PIL (Pillow) in the build? (y/N, Enter: N): ").strip().lower() == 'y'
 
@@ -239,7 +237,7 @@ def main():
         cmd.append("--collect-all=PIL")
         info("PIL will be bundled (--collect-all=PIL)")
 
-    if project_uses_module(base_dir, 'customtkinter'):
+    if 'customtkinter' in used_modules:
         cmd.append("--collect-all=customtkinter")
         info("customtkinter detected in project – added --collect-all") 
 
